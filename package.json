@@ -21,11 +21,18 @@
   "homepage": "https://github.com/djavaweb/unobuilder-component-parser#readme",
   "devDependencies": {
     "ava": "^0.19.1",
+    "browser-env": "^2.0.30",
     "xo": "^0.18.1"
+  },
+  "ava": {
+    "require": ["./test/helpers/browser-env.js"]
   },
   "xo": {
     "esnext": true,
     "space": true,
     "semicolon": false
+  },
+  "dependencies": {
+    "unobuilder-parser": "next"
   }
 }
