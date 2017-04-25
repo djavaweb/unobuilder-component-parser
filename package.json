@@ -25,7 +25,9 @@
     "xo": "^0.18.1"
   },
   "ava": {
-    "require": ["./test/helpers/browser-env.js"]
+    "require": [
+      "./test/helpers/browser-env.js"
+    ]
   },
   "xo": {
     "esnext": true,
@@ -33,6 +35,9 @@
     "semicolon": false
   },
   "dependencies": {
-    "unobuilder-parser": "next"
+    "html-minifier": "^3.4.3",
+    "if-json": "^1.0.0",
+    "unobuilder-parser": "next",
+    "unobuilder-style-to-object": "^1.1.0"
   }
 }

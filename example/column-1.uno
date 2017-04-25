@@ -1,5 +1,5 @@
 <template>
-  <div class="uk-grid" ref="row">
+  <div class="uk-grid" prop="row">
     <div class="uk-width-1-1"></div>
   </div>
 </template>
@@ -9,7 +9,8 @@
   row: {
     width: false,
     minWidth: false,
-    maxWidth: false
+    maxWidth: false,
+    minHeight: '60px'
   }
 }
 </properties>

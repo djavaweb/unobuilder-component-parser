@@ -1,3 +1,3 @@
-const browserEnv = require('browser-env')()
+const browserEnv = require('browser-env')
 
 browserEnv(['window', 'document'])
