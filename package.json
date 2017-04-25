@@ -1,6 +1,6 @@
 {
   "name": "unobuilder-component-parser",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Instantly parsing component format to unobuilder object",
   "main": "index.js",
   "scripts": {
