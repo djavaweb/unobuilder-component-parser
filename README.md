@@ -1,2 +1,2 @@
-# Unobuilder Component Parser
-:earth_asia: Instantly parsing component format to unobuilder object.
+# :earth_asia: Unobuilder Component Parser
+Instantly parsing component format to unobuilder object.
