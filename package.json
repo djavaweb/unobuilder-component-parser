@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/djavaweb/unobuilder-component-parser/issues"
   },
-  "homepage": "https://github.com/djavaweb/unobuilder-component-parser#readme"
+  "homepage": "https://github.com/djavaweb/unobuilder-component-parser#readme",
+  "devDependencies": {
+    "ava": "^0.19.1",
+    "xo": "^0.18.1"
+  }
 }
