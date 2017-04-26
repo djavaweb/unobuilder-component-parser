@@ -36,7 +36,6 @@
   },
   "dependencies": {
     "html-minifier": "^3.4.3",
-    "if-json": "^1.0.0",
     "unobuilder-parser": "next",
     "unobuilder-style-to-object": "^1.1.0"
   }

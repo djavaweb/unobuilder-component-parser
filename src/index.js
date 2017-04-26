@@ -1,9 +1,8 @@
-const toJSON = require('if-json')
 const cssToProps = require('unobuilder-style-to-object')
 const {minify} = require('html-minifier')
 const HTMLParser = require('unobuilder-parser')
 
-const PROPS = ['template', 'properties', 'script']
+const PROPS = ['template', 'script']
 
 const parseTemplate = unoConfig => {
   return PROPS.map(prop => {
@@ -46,20 +45,24 @@ const parseProperties = (template, properties) => {
   return recursive(parsedTemplate)
 }
 
+const parseObjectFunction = str => {
+  return new Function(`return ${str.replace(/^\n/g, '')}`)() // eslint-disable-line no-new-func
+}
+
 module.exports = unoConfig => {
-  const [template, properties, script] = parseTemplate(unoConfig)
+  const [template, script] = parseTemplate(unoConfig)
   const minifiedTemplate = minify(template[0], {
     trimCustomFragments: true,
     collapseWhitespace: true
   })
-  const parsedProperties = toJSON(properties[0])
+  const scriptJSON = parseObjectFunction(script[0])
+  const parsedProperties = scriptJSON.props
   const parseredTemplate = parseProperties(minifiedTemplate, parsedProperties)
 
   return Promise.resolve({
     parsed: {
       template: minifiedTemplate,
-      properties: parsedProperties,
-      script: script[0]
+      script: scriptJSON
     },
     template: parseredTemplate
   })

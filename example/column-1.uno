@@ -4,32 +4,22 @@
   </div>
 </template>
 
-<properties>
-{
-  row: {
-    width: false,
-    minWidth: false,
-    maxWidth: false,
-    minHeight: '60px'
-  }
-}
-</properties>
-
 <script>
-uno.registerComponent('column-1', {
+{
+  props: {
+    row: {
+      width: false,
+      minWidth: false,
+      maxWidth: false,
+      minHeight: '60px'
+    }
+  },
   settings: {
+    id: 'column-1',
     icon: 'assets/column-1.svg',
     group: 'Component',
     label: 'Column 1'
   },
-  data: {},
-  events: {
-    beforeInit: function () {},
-    afterInit: function () {},
-    dragStart: function () {},
-    dragMove: function (coords) {},
-    dragEnd: function () {},
-    ready: function () {}
-  }
-})
+  data: {}
+}
 </script>

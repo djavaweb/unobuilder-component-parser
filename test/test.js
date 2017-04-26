@@ -13,7 +13,7 @@ test('column 1 should be parsed template tag', async t => {
 
 test('column 1 should be parsed properties tag', async t => {
   await column1.then(({template, parsed: obj}) => {
-    t.deepEqual(obj.properties, {
+    t.deepEqual(obj.script.props, {
       row: {
         width: false,
         minWidth: false,
