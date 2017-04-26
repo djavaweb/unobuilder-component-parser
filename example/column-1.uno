@@ -20,6 +20,14 @@
     group: 'Component',
     label: 'Column 1'
   },
-  data: {}
+  data: {},
+  events: {
+    beforeInit: function () {},
+    afterInit: function () {},
+    dragStart: function () {},
+    dragMove: function (coords) {},
+    dragEnd: function () {},
+    ready: function () {}
+  }
 }
 </script>
