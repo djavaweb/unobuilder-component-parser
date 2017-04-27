@@ -5,9 +5,8 @@ import parser from '../src'
 
 const column1 = parser(readFileSync(path.resolve(__dirname, '..', 'example/column-1.uno'), 'utf-8'))
 test('column 1 should be parsed template tag', async t => {
-  await column1.then(({template, parsed: obj}) => {
+  await column1.then(({template}) => {
     t.is(template.childNodes.length, 1)
-    t.is(obj.template, '<div class="uk-grid" prop="row"><div class="uk-width-1-1"></div></div>')
   })
 })
 

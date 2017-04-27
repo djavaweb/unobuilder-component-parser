@@ -1,5 +1,4 @@
 const cssToProps = require('unobuilder-style-to-object')
-const {minify} = require('html-minifier')
 const HTMLParser = require('unobuilder-parser')
 
 const PROPS = ['template', 'script']
@@ -51,17 +50,13 @@ const parseObjectFunction = str => {
 
 module.exports = unoConfig => {
   const [template, script] = parseTemplate(unoConfig)
-  const minifiedTemplate = minify(template[0], {
-    trimCustomFragments: true,
-    collapseWhitespace: true
-  })
   const scriptJSON = parseObjectFunction(script[0])
   const parsedProperties = scriptJSON.props
-  const parseredTemplate = parseProperties(minifiedTemplate, parsedProperties)
+  const parseredTemplate = parseProperties(template[0], parsedProperties)
 
   return Promise.resolve({
     parsed: {
-      template: minifiedTemplate,
+      template: template[0],
       script: scriptJSON
     },
     template: parseredTemplate
