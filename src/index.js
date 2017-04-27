@@ -18,6 +18,10 @@ const parseProperties = (template, properties) => {
   const parsedTemplate = new HTMLParser(template)
 
   const recursive = obj => {
+    if (!('prop' in obj.dataObject.attrs)) {
+      return obj
+    }
+
     const prop = obj.dataObject.attrs.prop
     const propArray = Object.keys(properties)
     const propIndex = propArray.indexOf(prop)
@@ -49,15 +53,23 @@ const parseObjectFunction = str => {
 }
 
 module.exports = unoConfig => {
-  const [template, script] = parseTemplate(unoConfig)
-  const scriptJSON = parseObjectFunction(script[0])
-  const parsedProperties = scriptJSON.props
-  const parseredTemplate = parseProperties(template[0], parsedProperties)
+  const [templateParsed, scriptParsed] = parseTemplate(unoConfig)
+  const template = templateParsed[0]
+  const scriptJSON = parseObjectFunction(scriptParsed[0])
+  const script = Object.assign({
+    props: {},
+    data: {},
+    events: {},
+    settings: {}
+  }, scriptJSON)
+
+  const parsedProperties = script.props
+  const parseredTemplate = parseProperties(template, parsedProperties)
 
   return Promise.resolve({
     parsed: {
-      template: template[0],
-      script: scriptJSON
+      template,
+      script
     },
     template: parseredTemplate
   })
