@@ -10,7 +10,7 @@ const defaultScripts = {
 }
 
 const parseTemplate = str => {
-  const fakeElement = document.createElement('div')
+  const fakeElement = document.createElement('div') // eslint-disable-line no-undef
   fakeElement.innerHTML = str
 
   return Tags.map(
