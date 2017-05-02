@@ -1,17 +1,21 @@
 const cssToProps = require('unobuilder-style-to-object')
 const HTMLParser = require('unobuilder-parser')
 
-const PROPS = ['template', 'script']
+const Tags = ['template', 'script']
+const defaultScripts = {
+  props: {},
+  data: {},
+  events: {},
+  settings: {}
+}
 
-const parseTemplate = unoConfig => {
-  return PROPS.map(prop => {
-    // eslint-disable-next-line no-use-extend-native/no-use-extend-native
-    const findPropRE = new RegExp(`<${prop}[^>]*>([\\s\\S]*?)<\\/${prop}>`, 'g')
-    const removePropRe = new RegExp(`<\\/?${prop}>`, 'g')
-    return unoConfig.match(findPropRE).map(
-      val => val.replace(removePropRe, '')
-    )
-  })
+const parseTemplate = str => {
+  const fakeElement = document.createElement('div')
+  fakeElement.innerHTML = str
+
+  return Tags.map(
+    tag => fakeElement.querySelector(tag).innerHTML
+  )
 }
 
 const parseProperties = (template, properties) => {
@@ -52,25 +56,18 @@ const parseObjectFunction = str => {
   return new Function(`return ${str.replace(/^\n/g, '')}`)() // eslint-disable-line no-new-func
 }
 
-module.exports = unoConfig => {
-  const [templateParsed, scriptParsed] = parseTemplate(unoConfig)
-  const template = templateParsed[0]
-  const scriptJSON = parseObjectFunction(scriptParsed[0])
-  const script = Object.assign({
-    props: {},
-    data: {},
-    events: {},
-    settings: {}
-  }, scriptJSON)
-
-  const parsedProperties = script.props
-  const parseredTemplate = parseProperties(template, parsedProperties)
+module.exports = str => {
+  const [parsedTemplate, parsedScript] = parseTemplate(str)
+  const script = parseObjectFunction(parsedScript)
+  const {props: properties} = Object.assign(defaultScripts, script)
+  const template = parseProperties(parsedTemplate, properties)
 
   return Promise.resolve({
-    parsed: {
-      template,
-      script
+    contents: {
+      template: parsedTemplate,
+      script: parsedScript
     },
-    template: parseredTemplate
+    script,
+    template
   })
 }
